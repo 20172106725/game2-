@@ -7,38 +7,43 @@
 using namespace std;
 class CWolf;
 class CGhost;
-class CCreature;
+class CDragon;
 class CCreature
 {
 protected:
 	int nPower; //代表攻击力
 	int nLifeValue; //代表生命值
+	string name;
 public:
 	void display()
 	{
-		cout << "nPower=" << nPower << "  nLifeValue=" << nLifeValue << endl;
+		cout << name << "nPower=" << nPower << "  nLifeValue=" << nLifeValue << endl;
 	}
-	void setvalue(int p, int l)
+	void setvalue(string name_, int p, int l)
 	{
 		nPower = p;
 		nLifeValue = l;
+		name = name_;
 	}
 	void Hurted(int nPower)
 	{
 		//．．．．表现受伤动作的代码
+		cout << name << "受伤害" << endl;
 		nLifeValue -= nPower;
 	}
-	void Attack(CCreature * pobj)//谁攻击谁
+	void Attack(CCreature * pobj)
 	{
 		//．．．表现攻击动作的代码
-		pobj->Hurted(nPower);//被攻击的受伤值
-		pobj->FightBack(this);//被攻击的反击值
+		cout << name << "攻击" << endl;
+		pobj->Hurted(nPower);
+		pobj->FightBack(this);
 	}
 	// void Hurted( int nPower);
 	void FightBack(CCreature * pobj)
 	{
 		//．．．．表现反击动作的代码
-		pobj->Hurted(nPower / 2);//反击值为攻击值的二分之一(被攻击值自己的)
+		cout << name << "反击" << endl;
+		pobj->Hurted(nPower / 2);
 	}
 
 };
@@ -62,11 +67,11 @@ public:
 int main()
 {
 	CDragon oDragon;
-	oDragon.setvalue(20, 100);
+	oDragon.setvalue("龙", 20, 100);
 	CWolf oWolf;
-	oWolf.setvalue(4, 100);
+	oWolf.setvalue("狼", 4, 100);
 	CGhost oGhost;
-	oGhost.setvalue(10, 100);
+	oGhost.setvalue("幽灵", 10, 100);
 	oDragon.display();
 	oWolf.display();
 	oGhost.display();
